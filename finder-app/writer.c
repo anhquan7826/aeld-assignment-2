@@ -22,7 +22,10 @@ int main(int argc, char* argv[]) {
         return result;
     }
     syslog(LOG_DEBUG, "Writing %s to %s", writestr, writefile);
-    fprintf(file, "%s", writestr);
+    result = fprintf(file, "%s", writestr);
+    if (result != 0) {
+        syslog(LOG_ERR, "Failed to write to file!");
+    }
     fclose(file);
     closelog();
     return result;
